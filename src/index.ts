@@ -1,21 +1,23 @@
-import { ref, watchEffect, App  } from 'vue';
+import { ref  } from 'vue';
 import { createApp } from 'vue';
 import Toaster from './components/Toaster.vue';
 import mitt from 'mitt';
 
 const SnackbarService = {
-    install(app: any, options: any) {
-      const snackbarRef = ref();
+    // install(app: any, options: any) {
+    install(app: any) {
+      const snackbarRef = ref<any | null>();
       const emitter = mitt();
   
-      const notify = ({ position, type, duration, title, message, icon }: any) => {
+      const notify = (options: {
+        position: string;
+        type: string;
+        duration: number;
+        title: string;
+        message: string;
+      }) => {
         const appInstance = createApp(Toaster, {
-          position,
-          type,
-          duration,
-          title,
-          message,
-          icon,
+          ...options,
           deleteToast: () => {
             // Emitir um evento 'close' ao chamar deleteToast
             emitter.emit('close');
@@ -26,7 +28,7 @@ const SnackbarService = {
   
         snackbarRef.value = component;
         document.body.appendChild(component.$el);
-        snackbarRef.value.isVisible = true;
+        snackbarRef.value && (snackbarRef.value.isVisible = true);
 
         // Adicionar um ouvinte para o evento 'close'
         emitter.on('close', () => {
@@ -37,18 +39,6 @@ const SnackbarService = {
                 snackbarRef.value = null;
             }
         });
-  
-        // Remova o componente após a animação ou tempo de vida
-        // watchEffect(() => {
-        //   if (snackbarRef.value) {
-        //     setTimeout(() => {
-        //       if (snackbarRef.value) {
-        //         document.body.removeChild(snackbarRef.value.$el);
-        //         snackbarRef.value = null;
-        //       }
-        //     }, duration);
-        //   }
-        // });
       };
   
       // Adicione o serviço como uma propriedade global
