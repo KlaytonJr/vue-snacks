@@ -1,7 +1,7 @@
 {
   "name": "vue-snacks",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "files": [
     "dist",
     "src/components/"
@@ -13,10 +13,6 @@
     ".": {
       "import": "./dist/vue-snacks.mjs",
       "require": "./dist/vue-snacks.umd.js"
-    },
-    "./dist/style.css": {
-      "import": "./dist/style.css",
-      "require": "./dist/style.css"
     }
   },
   "scripts": {
