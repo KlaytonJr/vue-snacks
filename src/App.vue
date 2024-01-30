@@ -8,6 +8,7 @@
           <option value="error">Error</option>
           <option value="warning">Warn</option>
           <option value="info">Info</option>
+          <option value="details">Details</option>
         </select>
 
         <label for="position">Position:</label>
