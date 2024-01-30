@@ -1,8 +1,24 @@
 {
   "name": "vue-snacks",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "private": false,
+  "version": "0.0.3",
+  "files": [
+    "dist",
+    "src/components/"
+  ],
+  "main": "./dist/vue-snacks.umd.js",
+  "module": "./dist/vue-snacks.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-snacks.mjs",
+      "require": "./dist/vue-snacks.umd.js"
+    },
+    "./dist/style.css": {
+        "import": "./dist/style.css",
+        "require": "./dist/style.css"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -12,9 +28,25 @@
     "vue": "^3.3.11"
   },
   "devDependencies": {
+    "@types/node": "^20.11.10",
     "@vitejs/plugin-vue": "^4.5.2",
+    "path": "^0.12.7",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.7.2",
     "vue-tsc": "^1.8.25"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "keywords": [
+    "toaster",
+    "vue3",
+    "vue",
+    "vuejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KlaytonJr/vue-snacks.git"
   }
 }
