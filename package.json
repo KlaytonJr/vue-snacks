@@ -15,8 +15,8 @@
       "require": "./dist/vue-snacks.umd.js"
     },
     "./dist/style.css": {
-        "import": "./dist/style.css",
-        "require": "./dist/style.css"
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "scripts": {
@@ -25,7 +25,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.11"
+    "mitt": "^3.0.1",
+    "prop-types": "^15.8.1",
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.10",
