@@ -75,6 +75,7 @@ const closeToast = () => {
 };
 
 onMounted(() => {
+    console.log("onMounted");
     positionClass.value = `position-${props.position}`;
     typeClass.value = `type-${props.type}`;
     remainingMillis.value = props.duration || 3000;
@@ -86,7 +87,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
+<style>
 .toast { 
   display: flex;
   flex-direction: column;
