@@ -120,48 +120,45 @@ const injectCSS = () => {
   document.head.appendChild(style);
 };
 
+export const notify = (options: {
+  position: string;
+  type: string;
+  duration: number;
+  title: string;
+  message: string;
+  icon: string;
+}) => {
+  const snackbarRef = ref<any | null>();
+  const emitter = mitt();
+  const appInstance = createApp(Toaster, {
+    ...options,
+    deleteToast: () => {
+      // Emitir um evento 'close' ao chamar deleteToast
+      emitter.emit("close");
+    },
+  });
+
+  const component = appInstance.mount(document.createElement("div"));
+
+  snackbarRef.value = component;
+  document.body.appendChild(component.$el);
+  snackbarRef.value && (snackbarRef.value.isVisible = true);
+
+  // Adicionar um ouvinte para o evento 'close'
+  emitter.on("close", () => {
+    if (snackbarRef.value) {
+      emitter.off("close");
+      document.body.removeChild(snackbarRef.value.$el);
+      appInstance.unmount();
+      snackbarRef.value = null;
+    }
+  });
+};
+
 const SnackbarService = {
   // install(app: any, options: any) {
   install(app: App) {
     injectCSS();
-    const snackbarRef = ref<any | null>();
-    const emitter = mitt();
-
-    console.log("install");
-
-    const notify = (options: {
-      position: string;
-      type: string;
-      duration: number;
-      title: string;
-      message: string;
-      icon: string;
-    }) => {
-      console.log("notify");
-      const appInstance = createApp(Toaster, {
-        ...options,
-        deleteToast: () => {
-          // Emitir um evento 'close' ao chamar deleteToast
-          emitter.emit("close");
-        },
-      });
-
-      const component = appInstance.mount(document.createElement("div"));
-
-      snackbarRef.value = component;
-      document.body.appendChild(component.$el);
-      snackbarRef.value && (snackbarRef.value.isVisible = true);
-
-      // Adicionar um ouvinte para o evento 'close'
-      emitter.on("close", () => {
-        if (snackbarRef.value) {
-          emitter.off("close");
-          document.body.removeChild(snackbarRef.value.$el);
-          appInstance.unmount();
-          snackbarRef.value = null;
-        }
-      });
-    };
 
     // Adicione o serviço como uma propriedade global
     app.config.globalProperties.$snack = {

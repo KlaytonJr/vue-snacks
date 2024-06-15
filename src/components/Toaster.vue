@@ -75,7 +75,6 @@ const closeToast = () => {
 };
 
 onMounted(() => {
-    console.log("onMounted");
     positionClass.value = `position-${props.position}`;
     typeClass.value = `type-${props.type}`;
     remainingMillis.value = props.duration || 3000;

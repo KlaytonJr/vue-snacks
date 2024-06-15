@@ -1,11 +1,9 @@
 {
   "name": "vue-snacks",
   "private": false,
-  "version": "0.0.6",
+  "version": "0.0.10",
   "files": [
-    "dist",
-    "src/components/",
-    "src/style.css"
+    "dist"
   ],
   "main": "./vue-snacks.umd.js",
   "module": "./vue-snacks.mjs",
