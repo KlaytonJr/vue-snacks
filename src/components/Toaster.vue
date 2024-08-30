@@ -19,7 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import mitt from "mitt";
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
 
 const emit = defineEmits(['close'])
 
@@ -30,7 +31,8 @@ const props = defineProps({
     type: String,
     icon: String,
     duration: Number,
-    deleteToast: Function
+    deleteToast: Function,
+    emitter: mitt,
 })
 
 const isVisible = ref<boolean>(true);
@@ -68,17 +70,42 @@ const startTimer = () => {
 
 const closeToast = () => {
   pauseTimer();
-//   emit('close');
+  emit('close');
   props.deleteToast && props.deleteToast();
   isVisible.value = false;
   // Emitir um evento para que o componente pai possa remover o toast
 };
+
+// Função para ajustar a posição dos toasts
+function adjustToastPositions() {
+  const toasts = document.querySelectorAll(".toast");
+  toasts.forEach((toast, idx) => {
+    const classListString = toast.classList.toString();
+    const hasTop = classListString.includes("top");
+    const hasBottom = classListString.includes("bottom");
+
+    if (hasTop) {
+      (toast as HTMLElement).style.marginTop = `${90 * idx}px`;
+    } else if (hasBottom) {
+      (toast as HTMLElement).style.marginBottom = `${90 * idx}px`;
+    }
+  });
+}
+
+props.emitter?.on('close', () => {
+  nextTick(() => {
+    adjustToastPositions();
+  });
+})
 
 onMounted(() => {
     positionClass.value = `position-${props.position}`;
     typeClass.value = `type-${props.type}`;
     remainingMillis.value = props.duration || 3000;
     startTimer();
+    nextTick(() => {
+      adjustToastPositions();
+    });
 });
 
 onUnmounted(() => {

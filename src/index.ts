@@ -132,6 +132,7 @@ export const notify = (options: {
   const emitter = mitt();
   const appInstance = createApp(Toaster, {
     ...options,
+    emitter,
     deleteToast: () => {
       // Emitir um evento 'close' ao chamar deleteToast
       emitter.emit("close");
