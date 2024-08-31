@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import mitt from "mitt";
-import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
+import { Emitter } from "mitt";
+import { ref, onMounted, onUnmounted, nextTick, computed, PropType } from "vue";
 import FontAwesomeIcon from '@/icons';
 
 const emit = defineEmits(['close'])
@@ -36,7 +36,7 @@ const props = defineProps({
     icon: String,
     duration: Number,
     deleteToast: Function,
-    emitter: mitt,
+    emitter: Object as PropType<Emitter<any>>,
 })
 
 const isVisible = ref<boolean>(true);
