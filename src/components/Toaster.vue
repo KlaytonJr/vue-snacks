@@ -8,7 +8,10 @@
     @click="closeToast"
   >
     <div class="toast-header" :class="typeClass">
+      <div class="toast-title">
+        <font-awesome-icon :icon="iconName" v-if="iconName" class="toast-icon" />
         {{ props.title }}
+      </div>
       <!-- <button class="close" @click="closeToast">×</button> -->
     </div>
     <div class="toast-body">
@@ -20,7 +23,8 @@
 
 <script setup lang="ts">
 import mitt from "mitt";
-import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
+import FontAwesomeIcon from '@/icons';
 
 const emit = defineEmits(['close'])
 
@@ -41,6 +45,10 @@ const typeClass = ref<string>("");
 const progressBarWidth = ref<string>("100%");
 const timer = ref<any | null>(null);
 const remainingMillis = ref<number>(0);
+
+const iconName = computed(() => {
+  return props.icon ? props.icon : null;
+});
 
 const pauseTimer = () => {
   if (timer.value !== null) {
@@ -196,7 +204,10 @@ onUnmounted(() => {
 }
 
 .toast-title {
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
   font-size: 16px;
 }
 

@@ -14,13 +14,18 @@
       "require": "./dist/vue-snacks.umd.js"
     }
   },
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build && node scripts/build.js",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "mitt": "^3.0.1",
     "prop-types": "^15.8.1",
     "vue": "^3.0.0"

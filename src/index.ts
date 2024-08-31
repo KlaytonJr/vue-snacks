@@ -92,8 +92,11 @@ const injectCSS = () => {
     }
 
     .toast-title {
-    font-weight: bold;
-    font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 16px;
     }
 
     .toast-close {
