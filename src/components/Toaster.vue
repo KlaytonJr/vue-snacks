@@ -81,22 +81,18 @@ const closeToast = () => {
   emit('close');
   props.deleteToast && props.deleteToast();
   isVisible.value = false;
-  // Emitir um evento para que o componente pai possa remover o toast
 };
 
 // Função para ajustar a posição dos toasts
 function adjustToastPositions() {
-  const toasts = document.querySelectorAll(".toast");
-  toasts.forEach((toast, idx) => {
-    const classListString = toast.classList.toString();
-    const hasTop = classListString.includes("top");
-    const hasBottom = classListString.includes("bottom");
-
-    if (hasTop) {
-      (toast as HTMLElement).style.marginTop = `${90 * idx}px`;
-    } else if (hasBottom) {
-      (toast as HTMLElement).style.marginBottom = `${90 * idx}px`;
-    }
+  const toastsTop = document.querySelectorAll(".toast[class*='top']");
+  toastsTop.forEach((toast, idx) => {
+    (toast as HTMLElement).style.marginTop = `${90 * idx}px`;
+  });
+  
+  const toastsBottom = document.querySelectorAll(".toast[class*='bottom']");
+  toastsBottom.forEach((toast, idx) => {
+    (toast as HTMLElement).style.marginBottom = `${90 * idx}px`;
   });
 }
 
