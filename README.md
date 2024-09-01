@@ -4,6 +4,10 @@
 
 Vue Snacks is a toast notification component for Vue.js 3, developed with TypeScript. It offers a simple and flexible way to display temporary "toast" style notifications in your application.
 
+## Demo
+
+Check out the [Demo application](https://vue-snacks.web.app/) to see Vue Snacks in action.
+
 ## Installation
 
 First, install the package via npm:
